@@ -6,12 +6,8 @@ public class LoginRequest implements Serializable {
 
 	private static final long serialVersionUID = 8343394922010170114L;
 
-//	@NotNull
-//	@Digits(integer=16,fraction=0)
 	private String debitCardNumber;
 	
-//	@NotNull
-//	@Digits(integer=4, fraction=0)
 	private String atmPin;
 
 	public String getDebitCardNumber() {

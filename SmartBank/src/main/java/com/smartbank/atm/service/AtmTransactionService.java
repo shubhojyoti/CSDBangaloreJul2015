@@ -49,6 +49,7 @@ public class AtmTransactionService {
 		}
 		userAccount.debit(cashToWithdraw);
 		logger.info("User account balance after Withdrawal..." + userAccount.getBalance());
+
 		dispenseCash(cashToWithdraw);
 		logger.info("ATM balance after Withdrawal..." + getAtmBalance());
 	}
