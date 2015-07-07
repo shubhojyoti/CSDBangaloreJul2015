@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.smartbank.atm.exception.AtmLimitExceededException;
 import com.smartbank.atm.exception.InsufficientFundsException;
+import com.smartbank.atm.exception.InvalidAmountException;
 import com.smartbank.atm.model.Account;
 import com.smartbank.atm.model.WithdrawalRequest;
 import com.smartbank.atm.service.AccountAccessService;
@@ -79,6 +80,10 @@ public class WithdrawalController {
 		try {
 			logger.info("withdrawMoney: Withdrawing money from user account.");
 			atmTransactionService.withdraw(userAccount, withdrawalRequest.getAmountToWithdraw());
+		} 
+		catch (InvalidAmountException e) {
+			model.addAttribute("errorMsg", "Invalid amount specified. Please select amount in the multiples of 100.");
+			return "withdrawal";
 		} 
 		catch (InsufficientFundsException e) {
 			model.addAttribute("errorMsg", "You do not have enough funds to withdraw requested amount. Please enter a lower amount.");

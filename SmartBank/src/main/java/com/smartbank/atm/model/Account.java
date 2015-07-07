@@ -9,7 +9,7 @@ public class Account implements Serializable {
 	private String accountNumber;
 	private String debitCardNumber;
 	private String debitCardPin;
-	private long accountBalance;
+	private long balance;
 
 	public Account(String accountNumber, String debitCardNumber,
 			String debitCardPin, long initialBalance) 
@@ -17,7 +17,7 @@ public class Account implements Serializable {
 		this.accountNumber = accountNumber;
 		this.debitCardNumber = debitCardNumber;
 		this.debitCardPin = debitCardPin;
-		this.accountBalance = initialBalance;
+		this.balance = initialBalance;
 	}
 
 	public String getAccountNumber() {
@@ -38,15 +38,15 @@ public class Account implements Serializable {
 	public void setDebitCardPin(String debitCardPin) {
 		this.debitCardPin = debitCardPin;
 	}
-	public long getAccountBalance() {
-		return accountBalance;
+	public long getBalance() {
+		return balance;
 	}
-	public void setAccountBalance(long accountBalance) {
-		this.accountBalance = accountBalance;
+	public void setBalance(long accountBalance) {
+		this.balance = accountBalance;
 	}
 	
 	public void debit(int cashToWithdraw) {
-		this.accountBalance -= cashToWithdraw;
+		this.balance -= cashToWithdraw;
 	}
 
 }

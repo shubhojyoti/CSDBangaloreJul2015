@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.smartbank.atm.exception.AtmLimitExceededException;
 import com.smartbank.atm.exception.InsufficientFundsException;
+import com.smartbank.atm.exception.InvalidAmountException;
 import com.smartbank.atm.model.Account;
 
 @Service
@@ -13,7 +14,7 @@ public class AtmTransactionService {
 	private static final Logger logger = LogManager.getLogger(AtmTransactionService.class);
 
 	private long atmBalance = 1000000;
-	private long atmLimit = 25000;
+	private int atmLimit = 25000;
 	
 	public long getAtmBalance() {
 		return atmBalance;
@@ -33,9 +34,12 @@ public class AtmTransactionService {
 
 
 	public void withdraw(Account userAccount, int cashToWithdraw) 
-			throws InsufficientFundsException, AtmLimitExceededException 
+			throws InsufficientFundsException, AtmLimitExceededException, InvalidAmountException 
 	{
-		if (cashToWithdraw > userAccount.getAccountBalance()) {
+		if (!validateAmountMultipleOf100(cashToWithdraw)) {
+			throw new InvalidAmountException("The amount requested must be a multiple of 100.");
+		}
+		if (cashToWithdraw >= userAccount.getBalance()) {
 			logger.error("withdraw: Error! User account has insufficient funds.");
 			throw new InsufficientFundsException();
 		}
@@ -44,9 +48,17 @@ public class AtmTransactionService {
 			throw new AtmLimitExceededException();
 		}
 		userAccount.debit(cashToWithdraw);
-		logger.info("User account balance after Withdrawal..." + userAccount.getAccountBalance());
+		logger.info("User account balance after Withdrawal..." + userAccount.getBalance());
 		dispenseCash(cashToWithdraw);
 		logger.info("ATM balance after Withdrawal..." + getAtmBalance());
+	}
+
+	private boolean validateAmountMultipleOf100(double amount) {
+		return (amount > 0) && (amount%100 == 0);
+	}
+
+	public int getSingleTxnLimit() {
+		return this.atmLimit;
 	}
 
 }
