@@ -18,7 +18,7 @@ public class WelcomePageSteps {
 
 	@Given("^this is my first attempt to access the application$")
 	public void this_is_my_first_attempt_to_access_the_application() throws Throwable {
-		driver = new FirefoxDriver();
+		driver = new Firefox Driver();
 	}
 
 	@When("^I request application base url$")
@@ -35,7 +35,7 @@ public class WelcomePageSteps {
 	@Then("^there must be bank logo on the page$")
 	public void there_must_be_bank_logo_on_the_page() throws Throwable {
 		WebElement image = driver.findElement(By.xpath("//*[@id='logo']"));
-		Assert.assertNotNull(image);
+		Assert.assertTrue(image.isDisplayed());
 	}
 
 	@Then("^there must be basic instructions to use the application$")
@@ -48,13 +48,6 @@ public class WelcomePageSteps {
 	public void there_must_be_a_button_to_BEGIN_the_transaction() throws Throwable {
 		WebElement element = driver.findElement(By.xpath("//*[@id='btnBegin']"));
 		Assert.assertNotNull(element);
-	}
-
-	@After
-	public void teardown() {
-		if (driver != null) {
-			driver.quit();
-		}
 	}
 	
 }
