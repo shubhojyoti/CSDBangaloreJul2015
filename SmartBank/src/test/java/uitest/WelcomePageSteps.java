@@ -6,7 +6,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-import cucumber.api.java.After;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -18,7 +17,7 @@ public class WelcomePageSteps {
 
 	@Given("^this is my first attempt to access the application$")
 	public void this_is_my_first_attempt_to_access_the_application() throws Throwable {
-		driver = new Firefox Driver();
+		driver = new FirefoxDriver();
 	}
 
 	@When("^I request application base url$")
